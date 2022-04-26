@@ -3,15 +3,15 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def browser():
     print("\nstart browser for test..")
     browser = webdriver.Chrome()
-    yield browser
-    print("\nquit browser..")
-    browser.quit()
+    browser.implicitly_wait(7)
+    return browser
 
-class TestAnswer1:
-    def test_answer1_link(self, browser):
+class TestButton:
+    def test_link(self, browser):
             browser.get(link)
-            browser.find_element(By.TAG_NAME,value='Добавить в корзину')
+            button=browser.find_element_by_css_selector(".btn-add-to-basket")
+            assert button
